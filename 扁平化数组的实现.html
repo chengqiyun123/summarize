@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let arr = [1,2,[3,4,[5]],6];
+        //扁平化数组
+        function flatten(arr){
+            // return arr.reduce((result, item) =>{
+            //     return result.concat(Array.isArray(item)?flatten(item):item)
+            // },[]) 
+
+            // return arr.toString().split(',').map(item =>{
+            //     return Number(item)
+            // })
+
+            // return arr.join(',').split(',').map(item =>{
+            //     return Number(item)
+            // })
+
+            //递归
+
+            return [].concat(...arr)//循环遍历然后concat
+        }
+        let result = flatten(arr)//[1,2,3,4,5,6]
+        
+        //instanceof  用来测试一个对象在其原型链中是否存在一个构造函数的prototype属性
+        // console.log(arr instanceof Array)
+    </script>
+</body>
+</html>

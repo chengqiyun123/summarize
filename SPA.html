@@ -7,6 +7,77 @@
     <title>Document</title>
 </head>
 <body>
-    
+    <div class="router-link">
+        <!-- hash -->
+        <!-- <a href="#/home">home</a>
+        <a href="#/list">list</a>
+        <a href="#/detail">detail</a>
+        <a href="#/main">main</a> -->
+
+        <!-- history -->
+        <a href="/home">home</a>
+        <a href="/list">list</a>
+        <a href="/detail">detail</a>
+        <a href="/main">main</a>
+    </div>
+    <div class="router-view"></div>
+    <script>
+        //SPA原理：history hash  管理浏览器的记录栈
+        
+        let Router = function(config){
+            let routerView = document.querySelector('.router-view')
+            let routerLink = document.querySelector('.router-link')
+            let { mode, routes } = config;
+            if(mode === 'hash'){
+                window.onhashchange = () =>{//hash的依赖事件 改变路由时触发
+                    let path = location.hash.slice(1)// #/home -> /home
+                    routerView.innerHTML = routes.find(item => item.path === path).component.template
+                }
+            }
+            else if(mode === 'history'){
+                let link = routerLink.querySelectorAll('a')
+                let base = location.origin + location.pathname
+                
+                Array.from(link).forEach(item =>{
+                    item.onclick = function(e){
+                        e.preventDefault() //阻止a标签的默认行为
+                        let path = this.getAttribute('href')
+                        routes.forEach(item => {
+                            if(item.path === path){
+                                history.pushState({},'',base+path)
+                                routerView.innerHTML = item.component.template
+                            }
+                        })
+                    }
+                })
+                window.onpopstate = () =>{//history的依赖事件 点击前进和后退的时候触发
+                    let path = /\.html(.*)/.exec(location.pathname)[1];
+                    routes.forEach(item => {
+                        if(item.path === path){
+                            history.pushState({},'',base+path)
+                            routerView.innerHTML = item.component.template
+                        }
+                    })
+                }
+            }
+        }
+
+        new Router({
+            mode: 'history',
+            routes: [{
+                path: '/home',
+                component: {template: '<h1>this is home</h1>'}
+            },{
+                path: '/list',
+                component: {template: '<h1>this is list</h1>'}
+            },{
+                path: '/detail',
+                component: {template: '<h1>this is detail</h1>'}
+            },{
+                path: '/main',
+                component: {template: '<h1>this is main</h1>'}
+            }]
+        })
+    </script>
 </body>
 </html>

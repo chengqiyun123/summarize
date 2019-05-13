@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let arr = [100,1,2,3,4,3,4,5];
+        let mySet = new Set(arr)
+        // console.log(Array.from(result))// [{name:'111'}, 100, 1, 2, 3, 4, 5]
+        
+        let mySet2 = new WeakSet()
+        let obj = {name: '阿程'}
+        // console.log(result2.add(obj))
+        // console.log(new WeakSet([{},{name:'2'},{name:'1'}]));
+
+        let myMap = new Map([['阿程',100],['阿云',99]])
+        // console.log(myMap.get('阿程'))
+        // console.log(myMap.set('c',3))
+        // console.log([...myMap], Array.from(myMap))
+
+        let myMap2 = new WeakMap();
+        let myMap2Obj = {}
+        myMap2.set({name:'1'},'111')
+        // console.log(myMap2)
+
+        //for...of
+        for(const value of myMap){
+            // console.log(value)
+        }
+
+        //symbol
+        // let s1 = Symbol('111') //Symbol(111)
+        // let s2 = Symbol('111')
+        // console.log(s1===s2) //false
+        let s1 = Symbol.for('foo')
+        let s2 = Symbol.for('foo')
+        console.log(s1 === s2) //true
+    </script>
+</body>
+</html>
